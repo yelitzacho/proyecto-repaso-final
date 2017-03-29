@@ -1,4 +1,3 @@
-//
 window.addEventListener('load', function(){
     var ingresoButton = document.getElementById('boton-ingreso');
 
@@ -9,7 +8,7 @@ window.addEventListener('load', function(){
         this.contrasena = contrasena;
     }
 
-     // array que almacenará todos los datos del usuario
+    // array que almacenará todos los datos del usuario
     var coder = [];
 
     //variables globales de registro que me traerán los inputs
@@ -19,7 +18,7 @@ window.addEventListener('load', function(){
     var contrasena = document.getElementById('contrasena-registro');
     var registro = document.getElementById('registro');
 
-    //Función click
+    //Función al hacer click
     ingresoButton.addEventListener('click', function(evento){
         evento.preventDefault();
         if (nombre.value.length != 0 && apellido.value.length != 0 && mail.value.length != 0 && contrasena.value.length != 0) {
@@ -30,8 +29,10 @@ window.addEventListener('load', function(){
                 document.getElementById("form").reset()
         } else {
             var indicaciones = document.getElementById("indicaciones");
-                indicaciones.innerText = "Todos los campos deben ser llenados";
+                indicaciones.innerText = "Todos los campos son obligatorios";
         }
+
+        console.log (Coders);
     });
 
     //Validacion de Letras
@@ -47,11 +48,11 @@ window.addEventListener('load', function(){
     nombre.onkeypress = letras;
     apellido.onkeypress = letras;
 
-    //Validacion de Contraseña
+    //Validacion de Mail
     var email = function(evento){
         var codigos = evento.keyCode;
         var longitud = this.value.length
-            if ((codigos >= 65 && codigos <= 90) || (codigos >= 97 && codigos <= 122) || (codigos >= 97 && codigos <= 122)){
+            if ((codigos >= 65 && codigos <= 90) || codigos == 46 || codigos == 64 || (codigos >= 97 && codigos <= 122) || (codigos >= 48 && codigos <= 57)){
                 return true;
             } else{
                 return false;
@@ -64,7 +65,7 @@ window.addEventListener('load', function(){
     var password = function(evento){
         var codigos = evento.keyCode;
         var longitud = this.value.length;
-            if ((codigos >= 48 && codigos <= 57) || (longitud >=6 && longitud <= 20)){
+            if ((codigos >= 65 && codigos <= 90) || (codigos >= 97 && codigos <= 122) || (codigos >= 48 && codigos <= 57)){
                 return true;
             } else{
                 return false;
@@ -72,18 +73,20 @@ window.addEventListener('load', function(){
     }
 
     contrasena.onkeypress = password;
-});
 
-var inputs = document.getElementsByClassName('registro-coder');
-var validaciones = function(){
-    if(this.value.trim().length == 0){
-        this.value = "";
-        this.nextElementSibling.nextElementSibling.innerText = "Este campo es obligatorio";
-    }else{
-        this.nextElementSibling.nextElementSibling.innerText = "";
+    var inputs = document.getElementsByClassName("registro-coder");
+    var validaciones = function(){
+        if(this.value.trim().length == 0){
+            this.value = "";
+            this.nextElementSibling.nextElementSibling.innerText = "Este campo es obligatorio";
+        }else{
+            this.nextElementSibling.nextElementSibling.innerText ="";
+        }
     }
-}
 
-for (var i = 0; i <= inputs.length;i++){
-  inputs.onblur = validaciones;
-}
+    //Va a iterar en todos los inputs para validar
+    for (var i = 0; i <= inputs.length;i++){
+      inputs.onblur = validaciones;
+    }
+
+});
